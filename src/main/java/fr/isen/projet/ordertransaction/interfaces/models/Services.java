@@ -19,4 +19,7 @@ public class Services {
         void deleteTransaction(final int idTransaction);
     }
 
+    public interface ServiceStatus {
+        int countDatabaseElements();
+    }
 }
