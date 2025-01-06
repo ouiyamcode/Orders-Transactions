@@ -4,27 +4,30 @@
       "amount": 150.75,
       "paymentMethod": "PAYPAL",
       "idOrder": 1,
-      "transactionStatus": "SUCCESS",
+      "transactionStatus": "FAILED",
       "dateCreation": "21/12/2024 09:05:00",
-      "dateUpdate": "21/12/2024 09:10:00"
+      "dateUpdate": "21/12/2024 09:10:00",
+      "description": "Payment for order #1"
     },
     {
       "idTransaction": 2,
       "amount": 500.00,
-      "paymentMethod": "CARTE_BANCAIRE",
+      "paymentMethod": "CARD",
       "idOrder": 2,
-      "transactionStatus": "SUCCESS",
+      "transactionStatus": "PENDING",
       "dateCreation": "22/12/2024 10:05:00",
-      "dateUpdate": "22/12/2024 10:30:00"
+      "dateUpdate": "22/12/2024 10:30:00",
+      "description": "Payment for apartment rental order #2"
     },
     {
       "idTransaction": 3,
       "amount": 0.00,
-      "paymentMethod": "CHEQUE",
+      "paymentMethod": "CHECK",
       "idOrder": 3,
       "transactionStatus": "FAILED",
       "dateCreation": "23/12/2024 15:10:00",
-      "dateUpdate": "23/12/2024 15:20:00"
+      "dateUpdate": "23/12/2024 15:20:00",
+      "description": "Failed payment for order #3"
     }
   ]
   
