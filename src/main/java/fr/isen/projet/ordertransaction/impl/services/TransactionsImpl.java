@@ -388,11 +388,12 @@ public class TransactionsImpl implements Services.ServiceTransactions {
             conn = dataSource.getConnection();
             conn.setAutoCommit(false);
 
-            // Supprimer la transaction
+            // Mettre à jour le statut de la transaction en FAILED
             PreparedStatement transactionStmt = conn.prepareStatement(
-                    "DELETE FROM Transactions WHERE idTransaction = ?"
+                    "UPDATE Transactions SET transactionStatus = ? WHERE idTransaction = ?"
             );
-            transactionStmt.setInt(1, idTransaction);
+            transactionStmt.setString(1, "FAILED");
+            transactionStmt.setInt(2, idTransaction);
 
             int affectedRows = transactionStmt.executeUpdate();
             System.out.println("Lignes affectées dans Transactions : " + affectedRows);
@@ -407,7 +408,7 @@ public class TransactionsImpl implements Services.ServiceTransactions {
 
             // Valider la transaction
             conn.commit();
-            System.out.println("Transaction supprimée avec succès : ID " + idTransaction);
+            System.out.println("Statut de la transaction mis à jour avec succès : ID " + idTransaction);
 
         } catch (SQLException e) {
             if (conn != null) {
@@ -417,7 +418,7 @@ public class TransactionsImpl implements Services.ServiceTransactions {
                     rollbackEx.printStackTrace();
                 }
             }
-            throw new RuntimeException("Erreur lors de la suppression de la transaction avec l'ID " + idTransaction, e);
+            throw new RuntimeException("Erreur lors de la mise à jour du statut de la transaction avec l'ID " + idTransaction, e);
         } finally {
             if (conn != null) {
                 try {
@@ -428,6 +429,5 @@ public class TransactionsImpl implements Services.ServiceTransactions {
             }
         }
     }
-
 }
 
