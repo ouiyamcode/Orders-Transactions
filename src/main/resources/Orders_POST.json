@@ -1,0 +1,36 @@
+[
+    {
+      "idOrder": 1,
+      "dateCreation": "21/12/2024 09:00:00",
+      "dateUpdate": "21/12/2024 11:00:00",
+      "status": "EN_COURS",
+      "totalAmount": 150.75,
+      "idItem": 101,
+      "itemType": "PRODUCT",
+      "idUser": 25,
+      "description": "Order for a new laptop"
+    },
+    {
+      "idOrder": 2,
+      "dateCreation": "22/12/2024 10:00:00",
+      "dateUpdate": "22/12/2024 12:30:00",
+      "status": "TERMINE",
+      "totalAmount": 500.00,
+      "idItem": 102,
+      "itemType": "APARTMENT",
+      "idUser": 30,
+      "description": "Order for a short-term apartment rental"
+    },
+    {
+      "idOrder": 3,
+      "dateCreation": "23/12/2024 15:00:00",
+      "dateUpdate": "23/12/2024 17:00:00",
+      "status": "ANNULE",
+      "totalAmount": 0.00,
+      "idItem": 103,
+      "itemType": "PRODUCT",
+      "idUser": 40,
+      "description": "Order for a gaming console"
+    }
+  ]
+  
