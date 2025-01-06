@@ -1,0 +1,35 @@
+[
+  {
+    "idOrder": 101,
+    "dateCreation": "21/02/2025 09:00:00",
+    "dateUpdate": "22/02/2025 10:30:00",
+    "status": "PENDING",
+    "totalAmount": 150.75,
+    "idItem": 55,
+    "itemType": "PRODUCT",
+    "idUser": 4,
+    "description": "Order of 3 products"
+  },
+  {
+    "idOrder": 102,
+    "dateCreation": "22/02/2025 11:15:00",
+    "dateUpdate": "23/02/2025 14:45:00",
+    "status": "FINISHED",
+    "totalAmount": 200.50,
+    "idItem": 67,
+    "itemType": "APPARTMENT",
+    "idUser": 5,
+    "description": "Subscription renewal for 6 months"
+  },
+  {
+    "idOrder": 103,
+    "dateCreation": "23/02/2025 08:30:00",
+    "dateUpdate": "23/02/2025 10:00:00",
+    "status": "CANCELLED",
+    "totalAmount": 75.00,
+    "idItem": 12,
+    "itemType": "PRODUCT",
+    "idUser": 7,
+    "description": "Order of 1 product"
+  }
+]
