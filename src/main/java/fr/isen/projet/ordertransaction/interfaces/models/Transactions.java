@@ -7,7 +7,7 @@ public class Transactions {
     private int idTransaction ;
     private float amount;
     private PaymentMethod paymentMethod;
-    private int idOrder;
+    private Orders order;
     private TransactionStatus transactionStatus;
     private String dateCreation;
     private String dateUpdate;
