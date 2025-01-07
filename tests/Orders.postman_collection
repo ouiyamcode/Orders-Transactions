@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "b7c1491e-f632-4133-9250-0a6e75398682",
+		"name": "Orders API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40538406"
+	},
+	"item": [
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uuidOrder\": \"order-uuid-1\",\n    \"dateCreation\": \"2025-01-01T12:00:00\",\n    \"dateUpdate\": \"2025-01-01T12:00:00\",\n    \"status\": \"PENDING\",\n    \"totalAmount\": 100.5,\n    \"idItem\": 1,\n    \"uuidItem\": \"item-uuid-1\",\n    \"itemType\": \"PRODUCT\",\n    \"idUser\": 1,\n    \"uuidUser\": \"user-uuid-1\",\n    \"description\": \"Sample order description\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idOrder\": 1,\n    \"dateUpdate\": \"2025-01-02T12:00:00\",\n    \"status\": \"IN_PROGRESS\",\n    \"totalAmount\": 150.75,\n    \"description\": \"Updated order description\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/orders/update",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete (Mark as Finished)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/orders/delete/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"orders",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
