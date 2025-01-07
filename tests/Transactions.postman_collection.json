@@ -1,0 +1,167 @@
+{
+	"info": {
+		"_postman_id": "ce2c24ba-e467-4d7e-927e-2998665f2b04",
+		"name": "Transactions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31182037"
+	},
+	"item": [
+		{
+			"name": "createTransaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idTransaction\": 5,\n    \"amount\": 200.56,\n    \"paymentMethod\": \"CHECK\",\n    \"order\": {\n        \"idOrder\": 4,\n        \"dateCreation\": \"21/12/2024 09:00:00\",\n        \"dateUpdate\": \"21/12/2024 11:00:00\",\n        \"status\": \"PENDING\",\n        \"totalAmount\": 200.56,\n        \"idItem\": 108,\n        \"itemType\": \"PRODUCT\",\n        \"idUser\": 2,\n        \"description\": \"Order for a new tablet\"\n    },\n    \"transactionStatus\": \"SUCCESS\",\n    \"dateCreation\": \"21/12/2024 09:05:00\",\n    \"dateUpdate\": \"21/12/2024 09:10:00\",\n    \"description\": \"Payment for order #4\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8087/transactions/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"transactions",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getWithLotsOfCriteriasTransactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8087/transactions/?limit=10&status=SUCCESS&paymentMethod=PAYPAL&dateCreation=2024-12-21T09:00:00",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"transactions",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "status",
+							"value": "SUCCESS"
+						},
+						{
+							"key": "paymentMethod",
+							"value": "PAYPAL"
+						},
+						{
+							"key": "dateCreation",
+							"value": "2024-12-21T09:00:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getWithLimitAllTransactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8087/transactions/?limit=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"transactions",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByIdTransaction",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8087/transactions/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"transactions",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateTransaction",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idTransaction\": 5,\n    \"amount\": 250.75,\n    \"paymentMethod\": \"PAYPAL\",\n    \"order\": {\n        \"idOrder\": 4,\n        \"dateCreation\": \"22/12/2024 10:00:00\",\n        \"dateUpdate\": \"22/12/2024 12:30:00\",\n        \"status\": \"FINISHED\",\n        \"totalAmount\": 250.75,\n        \"idItem\": 110,\n        \"itemType\": \"APPARTMENT\",\n        \"idUser\": 3,\n        \"description\": \"Order for a luxury apartment rental\"\n    },\n    \"transactionStatus\": \"PENDING\",\n    \"dateCreation\": \"22/12/2024 10:05:00\",\n    \"dateUpdate\": \"22/12/2024 10:45:00\",\n    \"description\": \"Payment pending for order #4\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8087/transactions/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"transactions",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteByIdTransaction",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8087/transactions/delete/5",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"transactions",
+						"delete",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
