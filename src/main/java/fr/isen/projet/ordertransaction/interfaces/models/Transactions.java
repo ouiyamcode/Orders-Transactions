@@ -5,6 +5,7 @@ import fr.isen.projet.ordertransaction.interfaces.models.Enums.TransactionStatus
 
 public class Transactions {
     private int idTransaction;
+    private String uuidTransaction;
     private float amount;
     private PaymentMethod paymentMethod;
     private Orders order;
@@ -21,6 +22,14 @@ public class Transactions {
 
     public void setIdTransaction(int idTransaction) {
         this.idTransaction = idTransaction;
+    }
+
+    public String getUuidTransaction() {
+        return uuidTransaction;
+    }
+
+    public void setUuidTransaction(String uuidTransaction) {
+        this.uuidTransaction = uuidTransaction;
     }
 
     public float getAmount() {
@@ -79,3 +88,4 @@ public class Transactions {
         this.description = description;
     }
 }
+

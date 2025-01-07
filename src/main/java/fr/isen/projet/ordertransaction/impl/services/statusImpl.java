@@ -19,16 +19,20 @@ public class statusImpl implements Services.ServiceStatus {
 
         try {
             conn = dataSource.getConnection();
+            System.out.println("Connexion à la base de données réussie.");
 
-            PreparedStatement ordersCountStmt = conn.prepareStatement("SELECT COUNT(*) AS count FROM Orders");
+
+            // Compte le nombre d'éléments dans la table `order`
+            PreparedStatement ordersCountStmt = conn.prepareStatement("SELECT COUNT(*) AS count FROM `order`");
             ResultSet ordersResultSet = ordersCountStmt.executeQuery();
             if (ordersResultSet.next()) {
-                totalCount =  totalCount + ordersResultSet.getInt("count");
+                totalCount = totalCount + ordersResultSet.getInt("count");
             }
             ordersResultSet.close();
             ordersCountStmt.close();
 
-            PreparedStatement transactionsCountStmt = conn.prepareStatement("SELECT COUNT(*) AS count FROM Transactions");
+            // Compte le nombre d'éléments dans la table `transaction`
+            PreparedStatement transactionsCountStmt = conn.prepareStatement("SELECT COUNT(*) AS count FROM `transaction`");
             ResultSet transactionsResultSet = transactionsCountStmt.executeQuery();
             if (transactionsResultSet.next()) {
                 totalCount = totalCount + transactionsResultSet.getInt("count");
@@ -38,12 +42,12 @@ public class statusImpl implements Services.ServiceStatus {
 
             conn.close();
         } catch (SQLException e) {
-            throw new RuntimeException("Erreur lors du comptage des éléments dans les tables Orders et Transactions", e);
+            throw new RuntimeException("Erreur lors du comptage des éléments dans les tables order et transaction", e);
         } finally {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e){
+                } catch (SQLException e) {
                     throw new RuntimeException("Erreur lors de la fermeture de la connexion", e);
                 }
             }
@@ -52,3 +56,4 @@ public class statusImpl implements Services.ServiceStatus {
         return totalCount;
     }
 }
+

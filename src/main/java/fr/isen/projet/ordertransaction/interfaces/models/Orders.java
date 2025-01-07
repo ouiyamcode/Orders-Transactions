@@ -5,14 +5,19 @@ import fr.isen.projet.ordertransaction.interfaces.models.Enums.OrderStatus;
 
 public class Orders {
     private int idOrder;
-    private String dateCreation;
-    private String dateUpdate;
+    private String uuidOrder; // Nouveau
+    private String dateCreation; // Conservé
+    private String dateUpdate; // Conservé
     private OrderStatus status;
     private float totalAmount;
-    private int idItem;
+    private int idItem; // Conservé
+    private String uuidItem; // Nouveau
     private ItemType itemType;
-    private int idUser;
+    private int idUser; // Conservé
+    private String uuidUser; // Nouveau
     private String description;
+
+    // Getters and Setters
 
     public int getIdOrder() {
         return idOrder;
@@ -20,6 +25,14 @@ public class Orders {
 
     public void setIdOrder(int idOrder) {
         this.idOrder = idOrder;
+    }
+
+    public String getUuidOrder() {
+        return uuidOrder;
+    }
+
+    public void setUuidOrder(String uuidOrder) {
+        this.uuidOrder = uuidOrder;
     }
 
     public String getDateCreation() {
@@ -62,6 +75,14 @@ public class Orders {
         this.idItem = idItem;
     }
 
+    public String getUuidItem() {
+        return uuidItem;
+    }
+
+    public void setUuidItem(String uuidItem) {
+        this.uuidItem = uuidItem;
+    }
+
     public ItemType getItemType() {
         return itemType;
     }
@@ -78,6 +99,14 @@ public class Orders {
         this.idUser = idUser;
     }
 
+    public String getUuidUser() {
+        return uuidUser;
+    }
+
+    public void setUuidUser(String uuidUser) {
+        this.uuidUser = uuidUser;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -86,3 +115,4 @@ public class Orders {
         this.description = description;
     }
 }
+

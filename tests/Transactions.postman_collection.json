@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idTransaction\": 5,\n    \"amount\": 200.56,\n    \"paymentMethod\": \"CHECK\",\n    \"order\": {\n        \"idOrder\": 4,\n        \"dateCreation\": \"21/12/2024 09:00:00\",\n        \"dateUpdate\": \"21/12/2024 11:00:00\",\n        \"status\": \"PENDING\",\n        \"totalAmount\": 200.56,\n        \"idItem\": 108,\n        \"itemType\": \"PRODUCT\",\n        \"idUser\": 2,\n        \"description\": \"Order for a new tablet\"\n    },\n    \"transactionStatus\": \"SUCCESS\",\n    \"dateCreation\": \"21/12/2024 09:05:00\",\n    \"dateUpdate\": \"21/12/2024 09:10:00\",\n    \"description\": \"Payment for order #4\"\n}",
+					"raw": "{\n    \"idTransaction\": 5,\n    \"uuidTransaction\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"amount\": 200.56,\n    \"paymentMethod\": \"CHECK\",\n    \"order\": {\n        \"idOrder\": 4,\n        \"uuidOrder\": \"550e8400-e29b-41d4-a716-446655440111\",\n        \"dateCreation\": \"2024-12-21 09:00:00\",\n        \"dateUpdate\": \"2024-12-21 11:00:00\",\n        \"status\": \"PENDING\",\n        \"totalAmount\": 200.56,\n        \"idItem\": 100,\n        \"uuidItem\": \"550e8400-e29b-41d4-a716-446655440222\",\n        \"itemType\": \"PRODUCT\",\n        \"idUser\": 58,\n        \"uuidUser\": \"550e8400-e29b-41d4-a716-446655440333\",\n        \"description\": \"Order for a new tablet\"\n    },\n    \"transactionStatus\": \"SUCCESS\",\n    \"dateCreation\": \"2024-12-21 09:05:00\",\n    \"dateUpdate\": \"2024-12-21 09:10:00\",\n    \"description\": \"Payment for order #4\"\n}\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -122,7 +122,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idTransaction\": 5,\n    \"amount\": 250.75,\n    \"paymentMethod\": \"PAYPAL\",\n    \"order\": {\n        \"idOrder\": 4,\n        \"dateCreation\": \"22/12/2024 10:00:00\",\n        \"dateUpdate\": \"22/12/2024 12:30:00\",\n        \"status\": \"FINISHED\",\n        \"totalAmount\": 250.75,\n        \"idItem\": 110,\n        \"itemType\": \"APPARTMENT\",\n        \"idUser\": 3,\n        \"description\": \"Order for a luxury apartment rental\"\n    },\n    \"transactionStatus\": \"PENDING\",\n    \"dateCreation\": \"22/12/2024 10:05:00\",\n    \"dateUpdate\": \"22/12/2024 10:45:00\",\n    \"description\": \"Payment pending for order #4\"\n}\n",
+					"raw": "{\n    \"idTransaction\": 5,\n    \"uuidTransaction\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"amount\": 250.75,\n    \"paymentMethod\": \"PAYPAL\",\n    \"order\": {\n        \"idOrder\": 4,\n        \"uuidOrder\": \"550e8400-e29b-41d4-a716-446655440111\",\n        \"dateCreation\": \"2024-12-22 10:00:00\",\n        \"dateUpdate\": \"2024-12-22 12:30:00\",\n        \"status\": \"FINISHED\",\n        \"totalAmount\": 250.75,\n        \"idItem\": 110,\n        \"uuidItem\": \"550e8400-e29b-41d4-a716-446655440222\",\n        \"itemType\": \"APPARTMENT\",\n        \"idUser\": 3,\n        \"uuidUser\": \"550e8400-e29b-41d4-a716-446655440333\",\n        \"description\": \"Order for a luxury apartment rental\"\n    },\n    \"transactionStatus\": \"PENDING\",\n    \"dateCreation\": \"2024-12-22 10:05:00\",\n    \"dateUpdate\": \"2024-12-22 10:45:00\",\n    \"description\": \"Payment pending for order #4\"\n}\n\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -158,6 +158,24 @@
 						"transactions",
 						"delete",
 						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8087/status",
+					"host": [
+						"localhost"
+					],
+					"port": "8087",
+					"path": [
+						"status"
 					]
 				}
 			},
