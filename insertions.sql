@@ -1,0 +1,7 @@
+INSERT INTO `order` VALUES (1,'ef4f7b2e-cce3-11ef-b916-b48c9d6df3cd','2025-01-01 00:00:00','2025-01-02 00:00:00','PENDING',100.5,1,'4b357396-cce4-11ef-b916-b48c9d6df3cd','PRODUCT',1,'45e2ef5e-cce4-11ef-b916-b48c9d6df3cd','First order description'),
+                           (2,'ef4f8184-cce3-11ef-b916-b48c9d6df3cd','2025-01-03 00:00:00','2025-01-04 00:00:00','FINISHED',250,2,'4b3579db-cce4-11ef-b916-b48c9d6df3cd','APPARTMENT',2,'45e2f5ae-cce4-11ef-b916-b48c9d6df3cd','Second order description'),
+                           (3,'ef4f8326-cce3-11ef-b916-b48c9d6df3cd','2025-01-05 00:00:00','2025-01-06 00:00:00','CANCELLED',75.75,3,'4b357b93-cce4-11ef-b916-b48c9d6df3cd','PRODUCT',3,'45e2f864-cce4-11ef-b916-b48c9d6df3cd','Third order description');
+
+INSERT INTO `transaction` VALUES (1,'f1714d93-cce3-11ef-b916-b48c9d6df3cd',100.5,'CARD',1,'SUCCESS','2025-01-01 00:00:00','2025-01-02 00:00:00','Transaction for the first order'),
+                                 (2,'f17152ea-cce3-11ef-b916-b48c9d6df3cd',250,'PAYPAL',2,'FAILED','2025-01-03 00:00:00','2025-01-04 00:00:00','Transaction for the second order'),
+                                 (3,'f1715454-cce3-11ef-b916-b48c9d6df3cd',75.75,'CASH',3,'PENDING','2025-01-05 00:00:00','2025-01-06 00:00:00','Transaction for the third order');
