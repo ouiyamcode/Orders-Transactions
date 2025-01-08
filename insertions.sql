@@ -1,4 +1,5 @@
 INSERT INTO `order` VALUES
+;
 (1, 'ef4f7b2e-cce3-11ef-b916-b48c9d6df3cd', '2025-01-01 00:00:00', '2025-01-02 00:00:00', 'PENDING', 100.5, 1, '4b357396-cce4-11ef-b916-b48c9d6df3cd', 'PRODUCT', 1, '45e2ef5e-cce4-11ef-b916-b48c9d6df3cd', 'GoPro HERO11'),
 (2, 'ef4f8184-cce3-11ef-b916-b48c9d6df3cd', '2025-01-03 00:00:00', '2025-01-04 00:00:00', 'FINISHED', 250, 2, '4b3579db-cce4-11ef-b916-b48c9d6df3cd', 'APPARTMENT', 2, '45e2f5ae-cce4-11ef-b916-b48c9d6df3cd', '852 Cherry Ct, Keystone'),
 (3, 'ef4f8326-cce3-11ef-b916-b48c9d6df3cd', '2025-01-05 00:00:00', '2025-01-06 00:00:00', 'CANCELLED', 75.75, 3, '4b357b93-cce4-11ef-b916-b48c9d6df3cd', 'PRODUCT', 3, '45e2f864-cce4-11ef-b916-b48c9d6df3cd', 'Sony WH-1000XM5'),
