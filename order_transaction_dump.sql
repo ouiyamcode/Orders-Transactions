@@ -57,17 +57,17 @@ DROP TABLE IF EXISTS `transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `transaction` (
-  `id_transaction` int NOT NULL AUTO_INCREMENT,
-  `uuid_transaction` varchar(255) DEFAULT NULL,
-  `amount` float DEFAULT NULL,
-  `payment_method` varchar(50) DEFAULT NULL,
-  `id_order` int DEFAULT NULL,
-  `transaction_status` varchar(50) DEFAULT NULL,
-  `date_created` datetime DEFAULT NULL,
-  `date_update` datetime DEFAULT NULL,
-  `description` text,
-  PRIMARY KEY (`id_transaction`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `id_transaction` INT NOT NULL AUTO_INCREMENT,
+    `uuid_transaction` VARCHAR(255) DEFAULT NULL,
+    `amount` FLOAT DEFAULT NULL,
+    `payment_method` VARCHAR(50) DEFAULT NULL,
+    `id_order` INT DEFAULT NULL,
+    `transaction_status` VARCHAR(50) DEFAULT NULL,
+    `date_created` DATETIME DEFAULT NULL,
+    `date_update` DATETIME DEFAULT NULL,
+    `description` TEXT,
+    PRIMARY KEY (`id_transaction`)
+)  ENGINE=INNODB AUTO_INCREMENT=4 DEFAULT CHARSET=UTF8MB4 COLLATE = UTF8MB4_0900_AI_CI;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
