@@ -6,6 +6,9 @@ import fr.isen.projet.ordertransaction.interfaces.models.Orders;
 import io.agroal.api.AgroalDataSource;
 import jakarta.enterprise.inject.spi.CDI;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +46,24 @@ public class OrdersImpl {
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
+                int orderId = generatedKeys.getInt(1);
+
+                // Appeler les APIs externes selon le type d'élément
+                /*
+                try {
+                    if (order.getItemType() == ItemType.PRODUCT) {
+                        String productApiUrl = "http://localhost:8089/products/" + order.getIdItem() + "/stock/1";
+                        callExternalAPI(productApiUrl);
+                    } else if (order.getItemType() == ItemType.APPARTMENT) {
+                        String apartmentApiUrl = "http://localhost:8084/apartment/" + order.getIdItem() + "/ordered";
+                        callExternalAPI(apartmentApiUrl);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException("Erreur lors de l'appel aux APIs externes", e);
+                }
+                */
+
+                return orderId;
             }
 
             return -1;
@@ -193,6 +213,22 @@ public class OrdersImpl {
             }
         }
     }
+
+    /*
+    private void callExternalAPI(String apiUrl) throws IOException {
+        URL url = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+
+        int responseCode = connection.getResponseCode();
+        if (responseCode != 200 && responseCode != 201) {
+            throw new RuntimeException("Échec de l'appel à l'API externe : " + apiUrl + " (Code : " + responseCode + ")");
+        }
+
+        connection.disconnect();
+    }
+    */
 
     private Orders mapOrder(ResultSet rs) throws SQLException {
         Orders order = new Orders();
