@@ -1,14 +1,13 @@
 package fr.isen.projet.ordertransaction.impl.services;
 
-import fr.isen.projet.ordertransaction.interfaces.models.Enums.ItemType;
 import fr.isen.projet.ordertransaction.interfaces.models.Enums.OrderStatus;
+import fr.isen.projet.ordertransaction.interfaces.models.Enums.ItemType;
+import fr.isen.projet.ordertransaction.interfaces.models.Enums.TransactionStatus;
+import fr.isen.projet.ordertransaction.interfaces.models.OrderSearchCriteria;
 import fr.isen.projet.ordertransaction.interfaces.models.Orders;
 import io.agroal.api.AgroalDataSource;
 import jakarta.enterprise.inject.spi.CDI;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +64,6 @@ public class OrdersImpl {
 
                 return orderId;
             }
-
             return -1;
 
         } catch (SQLException e) {
@@ -112,25 +110,51 @@ public class OrdersImpl {
         }
     }
 
-    public List<Orders> getAllOrders() {
-        return getOrdersByStatus(null);
-    }
-
-    public List<Orders> getOrdersByStatus(OrderStatus status) {
+    public List<Orders> getOrdersByCriteria(OrderSearchCriteria criteria, Integer limit) {
         List<Orders> orders = new ArrayList<>();
         Connection conn = null;
 
         try {
             conn = dataSource.getConnection();
-            String query = "SELECT * FROM `order`";
-            if (status != null) {
-                query += " WHERE status = ?";
+            StringBuilder query = new StringBuilder("SELECT * FROM `order` WHERE 1=1");
+
+            // Ajout des critères dynamiques
+            if (criteria.getDateCreation() != null) {
+                query.append(" AND date_created = ?");
+            }
+            if (criteria.getTotalAmount() != null) {
+                query.append(" AND total_amount = ?");
+            }
+            if (criteria.getStatus() != null) {
+                query.append(" AND status = ?");
+            }
+            if (criteria.getItemType() != null) {
+                query.append(" AND item_type = ?");
             }
 
-            PreparedStatement stmt = conn.prepareStatement(query);
+            // Ajout de la limite si fournie
+            if (limit != null && limit > 0) {
+                query.append(" LIMIT ?");
+            }
 
-            if (status != null) {
-                stmt.setString(1, status.name());
+            PreparedStatement stmt = conn.prepareStatement(query.toString());
+
+            // Ajout des paramètres dynamiques
+            int index = 1;
+            if (criteria.getDateCreation() != null) {
+                stmt.setTimestamp(index++, Timestamp.valueOf(criteria.getDateCreation()));
+            }
+            if (criteria.getTotalAmount() != null) {
+                stmt.setFloat(index++, criteria.getTotalAmount());
+            }
+            if (criteria.getStatus() != null) {
+                stmt.setString(index++, criteria.getStatus().name());
+            }
+            if (criteria.getItemType() != null) {
+                stmt.setString(index++, criteria.getItemType().name());
+            }
+            if (limit != null && limit > 0) {
+                stmt.setInt(index++, limit);
             }
 
             ResultSet rs = stmt.executeQuery();
@@ -142,7 +166,7 @@ public class OrdersImpl {
             return orders;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erreur lors de la récupération des commandes", e);
+            throw new RuntimeException("Erreur lors de la récupération des commandes avec critères.", e);
         } finally {
             if (conn != null) {
                 try {
@@ -153,6 +177,8 @@ public class OrdersImpl {
             }
         }
     }
+
+
 
     public int updateOrder(Orders order) {
         Connection conn = null;
@@ -189,21 +215,35 @@ public class OrdersImpl {
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(
+            conn.setAutoCommit(false);
+
+            // Mise à jour du statut de la commande
+            PreparedStatement updateOrderStmt = conn.prepareStatement(
                     "UPDATE `order` SET status = ? WHERE id_order = ?"
             );
+            updateOrderStmt.setString(1, OrderStatus.CANCELLED.name());
+            updateOrderStmt.setInt(2, idOrder);
+            updateOrderStmt.executeUpdate();
 
-            stmt.setString(1, OrderStatus.CANCELLED.name());
-            stmt.setInt(2, idOrder);
+            // Mise à jour des transactions associées à la commande
+            PreparedStatement updateTransactionsStmt = conn.prepareStatement(
+                    "UPDATE `transaction` SET transaction_status = ? WHERE id_order = ?"
+            );
+            updateTransactionsStmt.setString(1, TransactionStatus.FAILED.name());
+            updateTransactionsStmt.setInt(2, idOrder);
+            updateTransactionsStmt.executeUpdate();
 
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Aucune commande trouvée avec l'ID donné.");
-            }
-
+            conn.commit();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erreur lors de la mise à jour de la commande", e);
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            throw new RuntimeException("Erreur lors de l'annulation de la commande et de ses transactions associées", e);
         } finally {
             if (conn != null) {
                 try {
@@ -241,7 +281,7 @@ public class OrdersImpl {
         order.setTotalAmount(rs.getFloat("total_amount"));
         order.setIdItem(rs.getInt("id_item"));
         order.setUuidItem(rs.getString("uuid_item"));
-        order.setItemType(rs.getString("item_type") != null ? ItemType.valueOf(rs.getString("item_type")) : null);
+        order.setItemType(ItemType.valueOf(rs.getString("item_type")));
         order.setIdUser(rs.getInt("id_user"));
         order.setUuidUser(rs.getString("uuid_user"));
         order.setDescription(rs.getString("description"));

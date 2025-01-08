@@ -1,7 +1,9 @@
 package fr.isen.projet.ordertransaction.interfaces;
 
 import fr.isen.projet.ordertransaction.impl.services.OrdersImpl;
+import fr.isen.projet.ordertransaction.interfaces.models.OrderSearchCriteria;
 import fr.isen.projet.ordertransaction.interfaces.models.Enums.OrderStatus;
+import fr.isen.projet.ordertransaction.interfaces.models.Enums.ItemType;
 import fr.isen.projet.ordertransaction.interfaces.models.Orders;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -29,15 +31,31 @@ public class OrdersResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllOrders(@QueryParam("status") String status) {
-        List<Orders> orders;
+    public Response getOrdersByCriteria(
+            @QueryParam("status") String status,
+            @QueryParam("dateCreation") String dateCreation,
+            @QueryParam("totalAmount") Float totalAmount,
+            @QueryParam("itemType") String itemType,
+            @QueryParam("limit") Integer limit
+    ) {
+        OrderSearchCriteria criteria = new OrderSearchCriteria();
         if (status != null) {
-            orders = orderService.getOrdersByStatus(OrderStatus.valueOf(status));
-        } else {
-            orders = orderService.getAllOrders();
+            criteria.setStatus(OrderStatus.valueOf(status));
         }
+        if (dateCreation != null) {
+            criteria.setDateCreation(dateCreation);
+        }
+        if (totalAmount != null) {
+            criteria.setTotalAmount(totalAmount);
+        }
+        if (itemType != null) {
+            criteria.setItemType(ItemType.valueOf(itemType));
+        }
+
+        List<Orders> orders = orderService.getOrdersByCriteria(criteria, limit);
         return Response.ok(orders).build();
     }
+
 
     @GET
     @Path("/{id}")
