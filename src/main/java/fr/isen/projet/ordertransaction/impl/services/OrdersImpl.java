@@ -123,7 +123,7 @@ public class OrdersImpl {
                 query.append(" AND date_created = ?");
             }
             if (criteria.getTotalAmount() != null) {
-                query.append(" AND total_amount = ?");
+                query.append(" AND ABS(total_amount - ?) < 0.01"); // Tolérance pour FLOAT
             }
             if (criteria.getStatus() != null) {
                 query.append(" AND status = ?");
@@ -177,6 +177,7 @@ public class OrdersImpl {
             }
         }
     }
+
 
 
 
