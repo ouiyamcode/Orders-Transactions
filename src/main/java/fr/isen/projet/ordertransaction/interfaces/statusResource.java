@@ -15,7 +15,7 @@ public class statusResource {
     private final statusImpl statusService = new statusImpl();
     @GET
     public String getStatus() throws JsonProcessingException {
-        String state = "KO"; // OK ou KO ou Dégradé
+        String state = "OK"; // OK ou KO ou Dégradé
         // L'état dégradé veut dire que votre code interne fonctionne mais que vous attendez un code dont vous êtes dépendants, donc d'un autre groupe
         String version = "1.0";
         int count = statusService.countDatabaseElements(); // Remplacez par une requête réelle pour compter les éléments de votre BDD

@@ -35,25 +35,24 @@ public class TransactionsImpl implements Services.ServiceTransactions {
             if (order != null) {
                 System.out.println("Préparation de l'insertion ou mise à jour de l'ordre : " + order);
                 PreparedStatement orderStmt = conn.prepareStatement(
-                        "INSERT INTO `order` (id_order, uuid_order, date_created, date_update, status, total_amount, id_item, uuid_item, item_type, id_user, uuid_user, description) " +
-                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                        "INSERT INTO `order` (uuid_order, date_created, date_update, status, total_amount, id_item, uuid_item, item_type, id_user, uuid_user, description) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                                 "ON DUPLICATE KEY UPDATE date_created = VALUES(date_created), date_update = VALUES(date_update), status = VALUES(status), " +
                                 "total_amount = VALUES(total_amount), id_item = VALUES(id_item), uuid_item = VALUES(uuid_item), item_type = VALUES(item_type), " +
                                 "id_user = VALUES(id_user), uuid_user = VALUES(uuid_user), description = VALUES(description)"
                 );
 
-                orderStmt.setInt(1, order.getIdOrder());
-                orderStmt.setString(2, order.getUuidOrder());
-                orderStmt.setTimestamp(3, order.getDateCreation() != null ? Timestamp.valueOf(order.getDateCreation()) : null);
-                orderStmt.setTimestamp(4, order.getDateUpdate() != null ? Timestamp.valueOf(order.getDateUpdate()) : null);
-                orderStmt.setString(5, order.getStatus().name());
-                orderStmt.setFloat(6, order.getTotalAmount());
-                orderStmt.setInt(7, order.getIdItem());
-                orderStmt.setString(8, order.getUuidItem());
-                orderStmt.setString(9, order.getItemType().name());
-                orderStmt.setInt(10, order.getIdUser());
-                orderStmt.setString(11, order.getUuidUser());
-                orderStmt.setString(12, order.getDescription());
+                orderStmt.setString(1, order.getUuidOrder());
+                orderStmt.setTimestamp(2, order.getDateCreation() != null ? Timestamp.valueOf(order.getDateCreation()) : null);
+                orderStmt.setTimestamp(3, order.getDateUpdate() != null ? Timestamp.valueOf(order.getDateUpdate()) : null);
+                orderStmt.setString(4, order.getStatus().name());
+                orderStmt.setFloat(5, order.getTotalAmount());
+                orderStmt.setInt(6, order.getIdItem());
+                orderStmt.setString(7, order.getUuidItem());
+                orderStmt.setString(8, order.getItemType().name());
+                orderStmt.setInt(9, order.getIdUser());
+                orderStmt.setString(10, order.getUuidUser());
+                orderStmt.setString(11, order.getDescription());
 
                 System.out.println("Exécution de l'insertion ou mise à jour de l'ordre...");
                 orderStmt.executeUpdate();
@@ -63,22 +62,21 @@ public class TransactionsImpl implements Services.ServiceTransactions {
             }
 
             PreparedStatement transactionStmt = conn.prepareStatement(
-                    "INSERT INTO transaction (id_transaction, uuid_transaction, amount, payment_method, id_order, transaction_status, date_created, date_update, description) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                    "INSERT INTO transaction (uuid_transaction, amount, payment_method, id_order, transaction_status, date_created, date_update, description) " +
+                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?) " +
                             "ON DUPLICATE KEY UPDATE amount = VALUES(amount), payment_method = VALUES(payment_method), id_order = VALUES(id_order), " +
                             "transaction_status = VALUES(transaction_status), date_created = VALUES(date_created), date_update = VALUES(date_update), description = VALUES(description)",
                     PreparedStatement.RETURN_GENERATED_KEYS
             );
 
-            transactionStmt.setInt(1, transaction.getIdTransaction());
-            transactionStmt.setString(2, transaction.getUuidTransaction());
-            transactionStmt.setFloat(3, transaction.getAmount());
-            transactionStmt.setString(4, transaction.getPaymentMethod().name());
-            transactionStmt.setInt(5, transaction.getOrder() != null ? transaction.getOrder().getIdOrder() : 0);
-            transactionStmt.setString(6, transaction.getTransactionStatus().name());
-            transactionStmt.setTimestamp(7, transaction.getDateCreation() != null ? Timestamp.valueOf(transaction.getDateCreation()) : null);
-            transactionStmt.setTimestamp(8, transaction.getDateUpdate() != null ? Timestamp.valueOf(transaction.getDateUpdate()) : null);
-            transactionStmt.setString(9, transaction.getDescription());
+            transactionStmt.setString(1, transaction.getUuidTransaction());
+            transactionStmt.setFloat(2, transaction.getAmount());
+            transactionStmt.setString(3, transaction.getPaymentMethod().name());
+            transactionStmt.setInt(4, transaction.getOrder() != null ? transaction.getOrder().getIdOrder() : 0);
+            transactionStmt.setString(5, transaction.getTransactionStatus().name());
+            transactionStmt.setTimestamp(6, transaction.getDateCreation() != null ? Timestamp.valueOf(transaction.getDateCreation()) : null);
+            transactionStmt.setTimestamp(7, transaction.getDateUpdate() != null ? Timestamp.valueOf(transaction.getDateUpdate()) : null);
+            transactionStmt.setString(8, transaction.getDescription());
 
             System.out.println("Exécution de l'insertion ou mise à jour de la transaction...");
             int affectedRows = transactionStmt.executeUpdate();
@@ -86,12 +84,20 @@ public class TransactionsImpl implements Services.ServiceTransactions {
                 throw new SQLException("La création de la transaction a échoué, aucune ligne affectée.");
             }
 
+            ResultSet generatedKeys = transactionStmt.getGeneratedKeys();
+            int generatedId = -1; 
+            if (generatedKeys.next()) {
+                generatedId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("La création de la transaction a échoué, aucun ID généré.");
+            }
+
             conn.commit();
             transactionStmt.close();
             conn.close();
 
-            System.out.println("Transaction créée avec succès : ID " + transaction.getIdTransaction());
-            return transaction.getIdTransaction();
+            System.out.println("Transaction créée avec succès : ID " + generatedId);
+            return generatedId;
 
         } catch (SQLException e) {
             if (conn != null) {
