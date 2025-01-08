@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "5bba2d56-95fc-497b-80e8-b2a313c97468",
+		"_postman_id": "867e43d3-1816-4e08-8689-4bb587d340f1",
 		"name": "Orders API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31182037"
+		"_exporter_id": "40538406"
 	},
 	"item": [
 		{
@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idOrder\": 5,\n    \"uuidOrder\": \"8f2ea93c-c1f8-448a-8867-08a6f0502b52\",\n    \"dateCreation\": \"2024-12-21 03:30:00\",\n    \"dateUpdate\": \"2024-12-21 07:30:00\",\n    \"status\": \"CANCELLED\",\n    \"totalAmount\": 764.48,\n    \"idItem\": 109,\n    \"uuidItem\": \"bacbfd48-f668-43aa-ae1f-0e422bb24053\",\n    \"itemType\": \"APPARTMENT\",\n    \"idUser\": 59,\n    \"uuidUser\": \"e007dee2-ec09-46af-9e38-36103cc4e5ab\",\n    \"description\": \"Order for item 10\"\n}"
+					"raw": "{\n    \"idOrder\": 51,\n    \"uuidOrder\": \"8f2ea93c-c1f8-448a-8867-08a6f0502b52\",\n    \"dateCreation\": \"2024-12-21 03:30:00\",\n    \"dateUpdate\": \"2024-12-21 07:30:00\",\n    \"status\": \"PENDING\",\n    \"totalAmount\": 764.48,\n    \"idItem\": 109,\n    \"uuidItem\": \"bacbfd48-f668-43aa-ae1f-0e422bb24053\",\n    \"itemType\": \"APPARTMENT\",\n    \"idUser\": 59,\n    \"uuidUser\": \"e007dee2-ec09-46af-9e38-36103cc4e5ab\",\n    \"description\": \"Order for item 10\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8087/orders/create",
@@ -40,13 +40,32 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8087/orders",
+					"raw": "localhost:8087/orders/?limit=10&status=CANCELLED&dateCreation=2024-12-21 03:30:00&totalAmount=764.48",
 					"host": [
 						"localhost"
 					],
 					"port": "8087",
 					"path": [
-						"orders"
+						"orders",
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "status",
+							"value": "CANCELLED"
+						},
+						{
+							"key": "dateCreation",
+							"value": "2024-12-21 03:30:00"
+						},
+						{
+							"key": "totalAmount",
+							"value": "764.48"
+						}
 					]
 				}
 			},
@@ -58,14 +77,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8087/orders/1",
+					"raw": "localhost:8087/orders/51",
 					"host": [
 						"localhost"
 					],
 					"port": "8087",
 					"path": [
 						"orders",
-						"1"
+						"51"
 					]
 				}
 			},
@@ -83,7 +102,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idOrder\": 5,\n    \"uuidOrder\": \"8f2ea93c-c1f8-448a-8867-08a6f0502b52\",\n    \"dateCreation\": \"2024-12-21 03:30:00\",\n    \"dateUpdate\": \"2024-12-21 07:30:00\",\n    \"status\": \"FINISHED\",\n    \"totalAmount\": 764.48,\n    \"idItem\": 109,\n    \"uuidItem\": \"bacbfd48-f668-43aa-ae1f-0e422bb24053\",\n    \"itemType\": \"PRODUCT\",\n    \"idUser\": 59,\n    \"uuidUser\": \"e007dee2-ec09-46af-9e38-36103cc4e5ab\",\n    \"description\": \"Order for item 10\"\n}"
+					"raw": "{\n    \"idOrder\": 51,\n    \"uuidOrder\": \"8f2ea93c-c1f8-448a-8867-08a6f0502b52\",\n    \"dateCreation\": \"2024-12-21 03:30:00\",\n    \"dateUpdate\": \"2024-12-21 07:30:00\",\n    \"status\": \"FINISHED\",\n    \"totalAmount\": 764.48,\n    \"idItem\": 109,\n    \"uuidItem\": \"bacbfd48-f668-43aa-ae1f-0e422bb24053\",\n    \"itemType\": \"PRODUCT\",\n    \"idUser\": 59,\n    \"uuidUser\": \"e007dee2-ec09-46af-9e38-36103cc4e5ab\",\n    \"description\": \"Order for item 10\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8087/orders/update",
@@ -100,12 +119,12 @@
 			"response": []
 		},
 		{
-			"name": "Delete (Mark as Finished)",
+			"name": "Delete (Mark as CANCELLED)",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8087/orders/delete/1",
+					"raw": "localhost:8087/orders/delete/51",
 					"host": [
 						"localhost"
 					],
@@ -113,7 +132,7 @@
 					"path": [
 						"orders",
 						"delete",
-						"1"
+						"51"
 					]
 				}
 			},

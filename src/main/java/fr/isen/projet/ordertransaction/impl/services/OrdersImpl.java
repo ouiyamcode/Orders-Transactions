@@ -201,6 +201,7 @@ public class OrdersImpl {
                 throw new SQLException("Aucune commande trouvée avec l'ID donné.");
             }
 
+
         } catch (SQLException e) {
             throw new RuntimeException("Erreur lors de la mise à jour de la commande", e);
         } finally {
