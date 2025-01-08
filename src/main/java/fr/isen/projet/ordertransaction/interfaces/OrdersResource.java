@@ -89,8 +89,8 @@ public class OrdersResource {
         }
 
         try {
-            orderService.markOrderAsFinished(idOrder);
-            return Response.ok("Commande marquée comme terminée avec succès.").build();
+            orderService.markOrderAsCancelled(idOrder);
+            return Response.ok("Commande marquée comme annulée avec succès.").build();
         } catch (RuntimeException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Erreur lors de la mise à jour de la commande : " + e.getMessage())

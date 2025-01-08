@@ -184,7 +184,7 @@ public class OrdersImpl {
         }
     }
 
-    public void markOrderAsFinished(int idOrder) {
+    public void markOrderAsCancelled(int idOrder) {
         Connection conn = null;
 
         try {
@@ -193,7 +193,7 @@ public class OrdersImpl {
                     "UPDATE `order` SET status = ? WHERE id_order = ?"
             );
 
-            stmt.setString(1, OrderStatus.FINISHED.name());
+            stmt.setString(1, OrderStatus.CANCELLED.name());
             stmt.setInt(2, idOrder);
 
             int affectedRows = stmt.executeUpdate();
